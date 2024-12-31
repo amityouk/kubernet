@@ -1,0 +1,186 @@
+
+
+https://codefresh.io/learn/kubernetes-deployment/
+
+
+1. master
+
+These components are the API server, etcd, scheduler, controller-manager, and cloud controller manager.
+
+the controller manager. This component is a single binary composed of four sub-processes and they are:
+
+The node controller: Responsible for the health of the nodes in the cluster.
+The replication controller: responsible for keeping the desired amount of pods for each replication.
+The endpoints controller: handles the Endpoints object that links services and pods.
+The service account and token controller: handles the default accounts and API access for namespaces.
+
+
+
+
+2. Client nodes
+
+kubelet, kubeproxy,container runtime
+
+The kubelet, which makes sure all containers are running and healthy.
+
+The proxy allows communication to the inside network of the cluster by using network rules, mainly used for development and testing pods, it is recommended to remove it in production for security reasons.
+
+The container runtime, which is responsible for running the containers, the most common runtimes choices are: Docker and Containerd
+
+
+3. Namespaces are a way to organize clusters into virtual sub-clusters — they can be helpful when different teams or projects share a Kubernetes cluster. Any number of namespaces are supported within a cluster, each logically
+ separated from others but with the ability to communicate with each other.
+
+Kubernetes starts with four initial namespaces:
+default The default namespace for objects with no other namespace.
+kube-node-lease This namespace holds Lease objects associated with each node. ...
+kube-public This namespace is created automatically and is readable by all users (including those not authenticated).
+
+
+
+
+4. Types of Kubernetes Services (networking for pods)
+ClusterIP. (ClusterIP (default))Exposes a service which is only accessible from within the cluster.
+NodePort. Exposes a service via a static port on each node's IP.
+LoadBalancer. Exposes the service via the cloud provider's load balancer.
+ExternalName.
+
+Here are important aspects of the service manifest:
+
+metadata:name—this is the logical name of the service, which will also become the DNS name of the service when it is created.
+spec:selector—the selector identifies which pods that should be included in the service. In this example, pods that have the label app: nginx will become part of the service.
+spec:ports—a list of port configurations (there can be one or more). Each port configuration defines a network protocol and port number. Optionally, the port configuration can define a targetPort, which is the port the pod should send traffic to.
+
+5. A Kubernetes Deployment tells Kubernetes how to create or modify instances of the pods that hold a containerized application. Deployments can help to efficiently scale the number of replica pods, enable the rollout of updated code in a
+ controlled manner, or roll back to an earlier deployment version if necessary.
+
+6. A pod is a unit including one or more containers that share storage and networking resources. Pods are the smallest application building blocks in a Kubernetes cluster.
+
+7. A StatefulSet is a workload API object for managing stateful applications.imilar to Deployments, StatefulSets manage the behavior of pods.
+ However, it differs from deployments in that it maintains a static ID for each pod. Pods are created from the same template, but each one has a separate identity,
+ making it possible to maintain a persistent state across the full lifecycle of the pod.
+
+Deployment	                                   StatefulSet
+Intended for stateless applications	          Intended for stateful applications
+Pods are interchangeable	                  Pods are unique and have a persistent ID
+All replicas share the same volumes and PersistentVolumeClaims	Each pod has its own volumes and PersistentVolumeClaims
+
+8. A ReplicaSet is a Kubernetes object that runs multiple instances of a pod and ensures a certain number of pods is running at all times. 
+The goal is to ensure that the applications running in the pods have enough resources and do not experience downtime, even if one or more pods fail. 
+
+9. Kubernetes Deployment Status and Lifecycle
+A Kubernetes Deployment object has the following lifecycle stages:
+
+Progressing—this means the Deployment is currently making changes to the cluster to meet the desired state in the declarative configuration.
+Completed—this means the deployment has finished matching cluster state to the desired state. All required pods are available and running the latest pods specification, and old pods are no longer running.
+Failed—this means that the deployment encountered a problem while trying to reconcile cluster state with desired state. For example, there may have been insufficient resources or errors when running pods. 
+To understand the cause of a failed deployment, use the command kubectl rollout status.
+
+10. Kubernetes offers the following two deployment strategies out of the box:
+10A.Recreate Deployment
+
+The recreate strategy kills the currently running pod instances and creates new instances running the latest version. This is often used in development environments where users are not actively working on the instances and downtime is acceptable. 
+
+10B. Rolling Update Deployment
+Rolling Update Deployment
+A rolling update deployment strategy allows for a sequential, gradual transition from one application version to another. In this deployment, a new version of a ReplicaSet is started alongside the existing ReplicaSet with the old version. The Deployment object launches new pods using the new version of the pod specification, and when the new pods start successfully, shuts down the old pods.  
+Rolling updates allow you to migrate between versions in a safe and controlled manner, but the transition to the new version can take time. Also,
+ it can be difficult to roll back or interrupt the deployment in the middle if something goes wrong.
+
+11. Blue/Green Deployment (Also Known as Red/Black Deployment)
+The downside of a blue/green deployment is that it requires twice the resource utilization, at least during the staging and cut-off period.
+
+12.Canary Deployment
+Canary deployments are great for testing new features with small groups of users and can be rolled back easily. Therefore, canary deployment is a good way to determine how new code will affect the system as a whole and whether it will have a positive or negative impact on user experience. 
+you also need a service mesh or network gateway to split traffic between current and canary versions.
+
+13.A/B Testing
+
+14. Shadow Deployment
+
+15. Progressive Deployment in Kubernetes with Argo Rollouts
+Blue/Green Deployment with Argo Rollouts
+Canary Deployment with Argo Rollouts
+
+
+Let’s update the Nginx Pods to use the nginx:1.16.1 image instead of the nginx:1.14.2 image.
+kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+
+##############################################################
+kubectl get deployment
+kubectl create deployment india
+kubectl describe deployment india
+kubectl delete deployment my-deployment  ###to delete your deployment
+
+kubectl get services (svc)
+kubectl create services india
+kubectl describe services india
+kubectl delete services services delete your deployment
+
+kubectl get rs
+
+kubectl get pods
+kubectl describe pods india
+
+
+
+
+#see the rollout status, run the command :
+kubectl rollout status deployment.v1.apps/nginx-deployment
+
+
+
+kubectl delete -f deployment.yaml to delete your deployment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://partner.cloudskillsboost.google/focuses/11576?parent=catalog	
+cleanup.sh	283 B	text/x-sh	Jan 8, 2023, 5:52:46 PM	Standard	Jan 8, 2023, 5:52:46 PM	Not public	—	
+Google-managed key
+—	
+None		
+deployments/	—	Folder	—	—	—	—	—	—	
+—	
+—		
+nginx/	—	Folder	—	—	—	—	—	—	
+—	
+—		
+pods/	—	Folder	—	—	—	—	—	—	
+—	
+—		
+services/	—	Folder	—	—	—	—	—	—	
+—	
+—		
+tls/

@@ -1,0 +1,79 @@
+
+
+
+
+
+
+#https://codefresh.io/learn/kubernetes-deployment/kubernetes-deployment-yaml/#:~:text=Kubernetes%20Statefulset%20Example%20YAML&text=Pods%20also%20have%20PersistentVolumes%20that,of%20an%20NGINX%20web%20server.
+
+
+#######################################
+apiVersion: apps/v1
+kind: Deployment
+#-----------------------------#
+metadata:
+  name: nginx-deployment
+  namespace: kube-system  # it is about namespace
+  labels:
+    app: web
+#-------------------------------#
+spec:
+  selector:
+    matchLabels:
+      app: web
+  replicas: 5
+  strategy:
+    type: RollingUpdate	
+################################################
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+#---------------------pv and pv-claim############
+      volumes:
+       —name: my-pv-storage
+          persistentVolumeClaim:
+            claimName: my-pv-claim
+#---------------------------------------------#
+      containers:
+       —name: nginx
+          image: nginx
+          ports:
+           —containerPort: 80
+          volumeMounts:
+           —mountPath: "/usr/share/nginx/html"
+              name: my-pv-storage
+              
+#------------------check health of----------------------------#
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+#------------------fix size of resouce----------------------------            
+          resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi  
+
+
+#################################
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-deployment
+spec:
+  type: LoadBalancer
+  selector:
+    app: web
+  ports:
+  - port: 4000
+    targetPort: 4000
+    protocol: TCP
+    
+    #############################

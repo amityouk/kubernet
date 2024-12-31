@@ -1,0 +1,18 @@
+Azure Boards – A work tracking system with Kanban boards, dashboards, and reporting
+Azure Pipelines – A CI/CD, testing, and deployment system that can connect to any Git repository
+Azure Repos – A cloud-hosted private Git repository service
+Azure Test Plans – A solution for tests and capturing data about defects
+Azure Artifacts – A hosting facility for Maven, npm, and NuGet packages
+
+
+AWS DevOps provides a wide range of features that include infrastructure as code, continuous integration and 
+deployment, testing, monitoring, and collaboration tools. AWS DevOps
+also offers a range of services, including CodePipeline, CodeBuild, CodeDeploy, and CodeCommit.
+
+Azure DevOps provides features such as agile project management, continuous integration and deployment,
+ testing, monitoring, and collaboration tools. Azure DevOps also offers a range of services such as Azure Boards,
+ Azure Repos, Azure Pipelines, and Azure Test Plans.
+
+
+
+
