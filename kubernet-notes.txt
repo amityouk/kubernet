@@ -10,6 +10,36 @@ https://akomljen.com/kubernetes-persistent-volumes-with-deployment-and-statefuls
 https://phoenixnap.com/kb/kubernetes-mysql
 https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
 
+https://edgedelta.com/company/blog/kubernetes-services-types
+
+https://kubedemy.io/kubernetes-installation-methods-the-complete-guide-update-2022  ### Type of installation
+
+1- Single-node installation:
+
+2- Manual cluster installation:
+This type of installation is used for deploying a minimum viable cluster. Some parts of the installation should be done manually. It’s a preferred way to deploy the Kubernetes cluster for the first time.
+
+kubeadm is a tool used to deploy a cluster manually. It is used to bootstrap Kubernetes components, not provisioning machines. Before bootstrapping the cluster, some actions should be done manually.
+
+Automatic mode 
+
+Managed clusters:
+Magnum is an OpenStack solution for installing managed Kubernetes – and other orchestration tools – on top of the OpenStack ecosystem. With Magnum, cloud customers can run Kubernetes clusters quickly. I decided to introduce it here because it also supports fantastic cloud features. In addition, OpenStack-based cloud providers can provide this method to their customers to install managed Kubernetes clusters.
+
+More on https://docs.openstack.org/magnum/latest
+
+EKS stands for Elastic Kubernetes Service and is the Amazon solution to provide managed Kubernetes clusters. EKS can easily be integrated with other Amazon services. A command-line tool, eksctl, runs a production Kubernetes cluster in a few minutes.
+
+More on https://aws.amazon.com/eks
+
+GKE is a Google version of Kubernetes, just like EKS. GKE also offers a special operation mode called Autopilot which reduces managing costs and optimizes clusters.
+
+More on https://cloud.google.com/kubernetes-engine
+
+AKS is managed by Microsoft Azure and can be deployed quickly. This managed Kubernetes
+
+
+
 
 What is the work of a kube-scheduler?
 Kube-scheduler is the default scheduler for Kubernetes. It assigns nodes to newly created pods.
