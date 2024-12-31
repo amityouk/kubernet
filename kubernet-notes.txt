@@ -1,3 +1,79 @@
+Containers are a powerful way for developers to package and deploy their applications. They are lightweight and provide a consistent, portable software environment for applications to easily run and scale anywhere. 80% of all containers in the cloud run on AWS. Customers such as Samsung, Expedia, GoDaddy, and Snap choose to run their containers on AWS because of our security, reliability, and scalability.
+
+https://ostridelabs.com/kubernetes-advantages-and-disadvantages/#:~:text=Complexity%3A%20Despite%20its%20powerful%20features,for%20some%20organizations%20to%20adopt.
+
+Kubernetes offers a powerful platform for managing containerized applications and services, with numerous advantages in terms of scalability, flexibility, and ecosystem support. However, it also presents challenges in terms of complexity, resource requirements, and security. Organizations considering Kubernetes adoption should carefully weigh its advantages and disadvantages to make informed decisions aligned with their business goals and requirements. With proper planning, expertise, and support, Kubernetes can help organizations unlock the full potential of containerized infrastructure and accelerate their digital transformation journey.
+
+
+Kubernetes offers several built-in security features, such as Role-Based Access Control (RBAC), network policies, and secure container runtimes.
+It is essential to configure these security features to protect the cluster from potential threats and unauthorized access. Additionally, third-party security tools and best practices play a vital role in enhancing the overall security posture of a Kubernetes cluster. ARMO Platform, 
+
+
+Kubernetes is an open-source platform designed to automate deploying, scaling, and operating application containers. Initially developed by Google, it has quickly become the industry standard for container orchestration. 
+
+Kubernetes simplifies the complex task of managing container distribution across a cluster of machines, enhancing applications’ efficiency and reliability.
+
+The platform provides a range of features, including service discovery, load balancing, storage orchestration, and automated rollouts and rollbacks. It allows users to maintain a desired state for their applications by automatically placing containers based on their resource requirements and other constraints while also taking care of scaling and application failover.
+
+https://trilio.io/kubernetes-disaster-recovery/kubernetes-backup/
+
+
+https://www.armosec.io/blog/kubernetes-deployment-and-service/
+There are two ways to create a Kubernetes deployment.
+
+Imperative: Use a CLI command to create a deployment
+Declarative: Describe a desired deployment state in a YAML (or JSON) file and apply the deployment
+
+Imperative:
+
+  $ kubectl create deployment nginx-deployment --image nginx --port=80
+
+Declarative (deployment.yaml):
+
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-deployment
+  spec:
+    selector:
+      matchLabels:
+        app: nginx-deployment
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          app: nginx-deployment
+      spec:
+        containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+          - containerPort: 80
+
+Verify the deployment:
+
+  $ kubectl apply -f deployment.yaml
+
+########################################################
+
+Deployments offer:
+
+High availability of your application (pods) by creating a ReplicaSets
+(Auto)scaling of pods
+Multiple strategies to deploy your application
+The possibility to rollback to an earlier revision of your deployment
+
+Kubernetes Deployment Strategy Types
+You can make your deployment work in multiple ways:
+
+Rolling (default): Your pods will be deployed one by one
+Recreate: All pods will be destroyed and then created again
+Blue/Green: By using labels, you can perform a blue/green deployment.
+
+
+
+
+
 https://codefresh.io/learn/kubernetes-deployment/
 https://jamesdefabia.github.io/docs/user-guide/kubectl/kubectl/
 https://codefresh.io/learn/kubernetes-deployment/
